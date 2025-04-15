@@ -352,6 +352,21 @@ class DatasourcesConfig(TypedDict):
 
 @mddoc
 @dataclass
+class LabdataConfig(TypedDict):
+    """Configuration for Labdata integration.
+
+    **Keys.**
+    - `auth_method`: Authentication method ("oauth" or "token")
+    - `credentials_path`: Path to credentials file
+    - `auto_connect`: Whether to automatically connect on startup
+    """
+    auth_method: Literal["oauth", "token"]
+    credentials_path: str
+    auto_connect: bool
+
+
+@mddoc
+@dataclass
 class MarimoConfig(TypedDict):
     """Configuration for the marimo editor"""
 
@@ -369,6 +384,7 @@ class MarimoConfig(TypedDict):
     experimental: NotRequired[dict[str, Any]]
     snippets: NotRequired[SnippetsConfig]
     datasources: NotRequired[DatasourcesConfig]
+    labdata: NotRequired[LabdataConfig]
 
 
 @mddoc
@@ -390,6 +406,7 @@ class PartialMarimoConfig(TypedDict, total=False):
     experimental: NotRequired[dict[str, Any]]
     snippets: SnippetsConfig
     datasources: NotRequired[DatasourcesConfig]
+    labdata: LabdataConfig
 
 
 DEFAULT_CONFIG: MarimoConfig = {
@@ -440,6 +457,11 @@ DEFAULT_CONFIG: MarimoConfig = {
     "snippets": {
         "custom_paths": [],
         "include_default_snippets": True,
+    },
+    "labdata": {
+        "auth_method": "oauth",
+        "credentials_path": "~/.labdata/credentials.json",
+        "auto_connect": True,
     },
 }
 

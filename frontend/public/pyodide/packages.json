@@ -1,0 +1,12 @@
+{
+  "packages": {
+    "labdata-api": {
+      "name": "labdata-api",
+      "version": "0.0.12",
+      "file_name": "labdata_api-0.0.12-py3-none-any.whl",
+      "install_dir": "site",
+      "sha256": "",
+      "depends": []
+    }
+  }
+}

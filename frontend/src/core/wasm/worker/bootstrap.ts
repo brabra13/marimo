@@ -10,6 +10,7 @@ import type { JsonString } from "@/utils/json/base64";
 import { t } from "./tracer";
 
 const MAKE_SNAPSHOT = false;
+const LABDATA_TOKEN = "your-internal-token-here"; // This should be replaced during build/deployment
 
 // This class initializes the wasm environment
 // We would like this initialization to be parallelizable
@@ -71,6 +72,27 @@ export class DefaultWasmController implements WasmController {
         indexURL: `https://cdn.jsdelivr.net/pyodide/${opts.pyodideVersion}/full/`,
       });
       this.pyodide = pyodide;
+      // load dependencies pandas, requests
+      console.log("Dependencies installation (pandas, requests)...");
+      await pyodide.loadPackage(["pandas", "requests"]);
+      // Load labdata_api manually after Pyodide initialization
+      console.log("labdata_api installation...");
+      const wheelUrl = "/pyodide/labdata_api-0.0.12-py3-none-any.whl";
+      await pyodide.loadPackage(wheelUrl, {
+        messageCallback: (msg) => console.log(msg),
+        errorCallback: (err) => console.error(err)
+      });
+
+      // Initialize labdata token in Python environment
+      await pyodide.runPythonAsync(`
+        import os
+        os.environ["LABDATA_TOKEN"] = "${LABDATA_TOKEN}"
+        import labdata_api
+        import pandas as pd
+        import requests
+        print("✅ labdata_api, pandas and requests are installed!")
+      `);
+
       span.end("ok");
       return pyodide;
     } catch (error) {

@@ -53,6 +53,7 @@ import { getMarimoVersion } from "@/core/dom/marimo-tag";
 import { OptionalFeatures } from "./optional-features";
 import { getFeatureFlag } from "@/core/config/feature-flag";
 import { Badge } from "../ui/badge";
+import { LabdataConfigForm } from "./labdata-config-form";
 
 const formItemClasses = "flex flex-row items-center space-x-1 space-y-0";
 const categories = [
@@ -1472,3 +1473,14 @@ const IsOverridden = ({
     </Tooltip>
   );
 };
+
+// Add to the tabs list
+const TABS = [
+  // ... existing tabs ...
+  {
+    value: "labdata",
+    label: "Labdata",
+    icon: PackageIcon,
+    content: <LabdataConfigForm />,
+  },
+];
