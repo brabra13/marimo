@@ -5,8 +5,8 @@
       "version": "0.0.12",
       "file_name": "labdata_api-0.0.12-py3-none-any.whl",
       "install_dir": "site",
-      "sha256": "",
-      "depends": []
+      "sha256": "e6a42d4b77f60b8a525100a49c29fd5102534e6ad48d47f12bc0ca59eb27edba",
+      "depends": ["pandas", "requests"]
     }
   }
 }

@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import List, Optional
 
-from fulldata import Fulldata
-from captures import Captures
+from .fulldata import Fulldata
+from .captures import Captures
 
 class Program():
     """

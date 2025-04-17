@@ -84,14 +84,19 @@ export class DefaultWasmController implements WasmController {
       });
 
       // Initialize labdata token in Python environment
-      await pyodide.runPythonAsync(`
+     try {await pyodide.runPythonAsync(`
         import os
         os.environ["LABDATA_TOKEN"] = "${LABDATA_TOKEN}"
+        print("✅ LABDATA_TOKEN configured!")
         import labdata_api
         import pandas as pd
         import requests
-        print("✅ labdata_api, pandas and requests are installed!")
+        print("✅ labdata_api, pandas and requests installed successfully!")
       `);
+        } catch (error) {
+        console.error("Failed to install labdata_api:", error);
+        throw new Error(`Labdata API installation failed: ${error}`);
+      }
 
       span.end("ok");
       return pyodide;

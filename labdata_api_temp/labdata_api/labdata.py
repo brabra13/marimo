@@ -1,9 +1,9 @@
 from typing import Callable
 import os
 
-from program import Program
+from .program import Program
 
-class Labdata():
+class Labdata:
     """
     Interface to labdata
 
