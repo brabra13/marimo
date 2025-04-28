@@ -21,9 +21,10 @@ class Program():
     ```
     """
 
-    def __init__(self, id:int, server) -> None: 
+    def __init__(self, name, id:int, server) -> None: 
         #
         self._server = server
+        self.name = name
 
         # Program information
         self.id = id
